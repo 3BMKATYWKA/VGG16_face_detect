@@ -1,7 +1,6 @@
 import glob
 import numpy as np
 import pandas as pd
-# kerasのload_imgには手動でpillowのinstall必要
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 from tensorflow.keras.applications.inception_v3 import InceptionV3, preprocess_input
 from tensorflow.keras.models import Model
@@ -29,7 +28,12 @@ for train_kind in train_list:
         x = img_to_array(img)
         x = preprocess_input(x)
         cat_img.append(x)
-        kind_label.append(train_kind) 
+        kind_label.append(train_kind)
+
+
+print('= = kind_label = =')
+print(kind_label)
+
 
 # 品種ラベルをダミー化
 Y_dummy = pd.get_dummies(kind_label)

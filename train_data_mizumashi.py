@@ -53,16 +53,13 @@ for i in range(256):
     LUT_G2[i] = 255 * pow(float(i) / 255, 1.0 / gamma2)
 
 for train_kind in train_list:
-    # INPUT_DIR = '{}/faces/train/{}'.format(os.getcwd(), train_class)
     OUTPUT_DIR = '{}/faces/train/{}'.format(os.getcwd(), train_kind)
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    print(OUTPUT_DIR)
-    # tdatetime = dt.now()
-    # tstr = tdatetime.strftime('%Y%m%d%H%M')
-    print(train_kind)
+    # print(OUTPUT_DIR)
+    # print(train_kind)
     file_list = glob.glob(f'faces/train/{train_kind}/*.jpg')
     for train_file in file_list:
-        print(train_file)
+        # print(train_file)
         name = basename_without_ext = os.path.splitext(os.path.basename(train_file))[0]
         img = Image.open(train_file)  # 画像読み込み
         filename = '{}-flip.jpg'.format(name)
@@ -80,11 +77,9 @@ for train_kind in train_list:
         img = cv2.imread(train_file, 1)
         # img = pil2cv(img)
         high_cont_img = cv2.LUT(img, LUT_HC)
-        # high_cont_img = img*1.2  # 輝度値が2倍になる
         filename = '{}-hi.jpg'.format(name)
         cv2.imwrite('{}/{}'.format(OUTPUT_DIR, filename), high_cont_img)  # 画像保存
         # ローコントラスト
         low_cont_img = cv2.LUT(img, LUT_LC)
-        # low_cont_img = (img - np.mean(img)) / np.std(img) * 32 + 120  # 標準偏差32,平均120に変更
         filename = '{}-low.jpg'.format(name)
         cv2.imwrite('{}/{}'.format(OUTPUT_DIR, filename), low_cont_img)  # 画像保存
